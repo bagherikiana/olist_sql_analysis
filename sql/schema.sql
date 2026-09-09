@@ -107,7 +107,7 @@ CREATE TABLE order_reviews (
     "review_comment_message" TEXT,
     "review_creation_date" TEXT,
     "review_answer_timestamp" TEXT,
-    PRIMARY KEY (review_id),
+    PRIMARY KEY (review_id , order_id),
     FOREIGN KEY (order_id)
         REFERENCES orders(order_id)
 );
