@@ -125,7 +125,7 @@ From this dashboard and the underlying [SQL analysis](https://github.com/bagheri
 ## Project Structure
 
 ```text
-olist_sql_analysis/powerbi/
+olist_sql_analysis  (branch: powerbi)
 ├── Olist_Ecommerce_Dashboard.pbix   # Power BI report
 ├── images/
 │   └── executive_dashboard.png      # Dashboard screenshot
@@ -136,11 +136,11 @@ olist_sql_analysis/powerbi/
 └── README.md
 ```
 
-This folder lives on the `powerbi` branch of the same Olist repo.  
-The star-schema CSVs (`data/model/`) are not committed because of their size. Regenerate from the repo SQLite DB:
+This Power BI project lives on the `powerbi` branch of the same Olist repo (files at branch root).  
+The star-schema CSVs (`data/model/`) are not committed because of their size. Regenerate from `olist.db`:
 
 ```bash
-python powerbi/scripts/export_star_schema.py
+python scripts/export_star_schema.py
 ```
 
 ---

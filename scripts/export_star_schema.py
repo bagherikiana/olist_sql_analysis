@@ -1,6 +1,6 @@
 """
 Export Olist SQLite tables into Power BI–ready star-schema CSVs.
-Source: ../../olist.db (same repo as this powerbi/ folder)
+Source: olist.db in the repo root (same folder layout as this Power BI branch).
 """
 from __future__ import annotations
 
@@ -9,9 +9,8 @@ from pathlib import Path
 
 import pandas as pd
 
-BASE = Path(__file__).resolve().parent.parent  # .../olist_sql_analysis/powerbi
-SQL_PROJECT = BASE.parent  # .../olist_sql_analysis
-DB_PATH = SQL_PROJECT / "olist.db"
+BASE = Path(__file__).resolve().parent.parent  # repo root on powerbi branch
+DB_PATH = BASE / "olist.db"
 OUT = BASE / "data" / "model"
 OUT.mkdir(parents=True, exist_ok=True)
 
