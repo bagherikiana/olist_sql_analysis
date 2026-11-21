@@ -1,0 +1,75 @@
+-- =====================================================
+-- Olist Power BI — core measures
+-- Create a Measures table, then paste each measure.
+-- =====================================================
+
+-- ===== Sales =====
+Total Product Revenue =
+SUM ( FactSales[product_revenue] )
+
+Total Freight =
+SUM ( FactSales[freight_value] )
+
+Total Gross Revenue =
+SUM ( FactSales[gross_revenue] )
+
+Orders =
+DISTINCTCOUNT ( FactSales[order_id] )
+
+Items Sold =
+COUNTROWS ( FactSales )
+
+AOV =
+DIVIDE ( [Total Product Revenue], [Orders] )
+
+-- ===== Customers =====
+Customers =
+DISTINCTCOUNT ( FactSales[customer_id] )
+
+Revenue per Customer =
+DIVIDE ( [Total Product Revenue], [Customers] )
+
+-- ===== Payments =====
+Payment Transactions =
+COUNTROWS ( FactPayments )
+
+Total Payment Value =
+SUM ( FactPayments[payment_value] )
+
+-- ===== Reviews / Delivery =====
+Avg Review Score =
+AVERAGE ( FactReviews[review_score] )
+
+Avg Delivery Days =
+AVERAGE ( DimOrder[delivery_days] )
+
+On-Time Delivery % =
+DIVIDE (
+    CALCULATE (
+        COUNTROWS ( DimOrder ),
+        DimOrder[delivered_on_time_flag] = 1
+    ),
+    CALCULATE (
+        COUNTROWS ( DimOrder ),
+        NOT ISBLANK ( DimOrder[delivered_on_time_flag] )
+    )
+)
+
+-- ===== Time intelligence (requires DimDate marked as date table) =====
+Revenue MTD =
+TOTALMTD ( [Total Product Revenue], DimDate[Date] )
+
+Revenue YTD =
+TOTALYTD ( [Total Product Revenue], DimDate[Date] )
+
+Revenue Previous Month =
+CALCULATE (
+    [Total Product Revenue],
+    DATEADD ( DimDate[Date], -1, MONTH )
+)
+
+Revenue MoM % =
+DIVIDE (
+    [Total Product Revenue] - [Revenue Previous Month],
+    [Revenue Previous Month]
+)
